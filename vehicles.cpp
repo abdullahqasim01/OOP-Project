@@ -10,6 +10,18 @@ class Vehicle{
         bool available;
     
     public:
+        Vehicle(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available){
+            this->brand = brand;
+            this->model = model;
+            this->id = id;
+            this->fuelType = fuelType;
+            this->power = power;
+            this->year = year;
+            this->milage = milage;
+            this->rentPerDay =  rentPerDay;
+            this->available = available;
+        }
+
         void setAvailable(bool available){
             this->available = available;
         }
@@ -55,6 +67,9 @@ class Car : private Vehicle{
         int noOfPassengers;
     
     public:
+        Car(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available, int noOfPassengers): Vehicle(brand, model, id, fuelType, power, year, milage, rentPerDay, available){
+            this->noOfPassengers = noOfPassengers;
+        }
         int getNoOfPassengers(){
             return noOfPassengers;
         }
@@ -65,6 +80,9 @@ class Cargo : private Vehicle{
         int loadCapacity;
 
     public:
+        Cargo(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available, int loadCapacity) : Vehicle(brand, model, id, fuelType, power, year, milage, rentPerDay, available){
+            this->loadCapacity = loadCapacity;
+        }
         int getLoadCapacity(){
             return loadCapacity;
         }
@@ -75,6 +93,9 @@ class Bike : private Vehicle{
         int noOfPassengers;
     
     public:
+        Bike(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available, int noOfPassengers) : Vehicle(brand, model, id, fuelType, power, year, milage, rentPerDay, available){
+            this->noOfPassengers = noOfPassengers;
+        }
         int getNoOfPassengers(){
             return noOfPassengers;
         }
