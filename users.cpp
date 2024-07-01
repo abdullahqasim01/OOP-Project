@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 class Payment{
@@ -10,7 +11,6 @@ class Payment{
 class User{
     protected:
         string username, password;
-
 };
 
 class Customer : private User {
