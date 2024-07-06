@@ -4,17 +4,18 @@ using namespace std;
 
 class Vehicle{
     protected:
-        string brand, model, id, fuelType;
+        string brand, model, id, fuelType, type;
         int power, year, noOfPassengers, loadCapacity;
         float milage, rentPerDay;
         bool available;
     
     public:
-        Vehicle(string brand, string model, string id, string fuelType, int power, int year, int noOfPassengers, int loadCapacity, float milage, float rentPerDay, bool available){
+        Vehicle(string brand, string model, string id, string fuelType, int power, int year, int noOfPassengers, int loadCapacity, float milage, float rentPerDay, bool available, string type){
             this->brand = brand;
             this->model = model;
             this->id = id;
             this->fuelType = fuelType;
+            this->type = type;
             this->power = power;
             this->year = year;
             this->milage = milage;
@@ -59,6 +60,12 @@ class Vehicle{
         }
         string getBrand(){
             return brand;
+        }
+        int getNoOfPassengers(){
+            return noOfPassengers;
+        }
+        int getLoadCapacity(){
+            return loadCapacity;
         }
 
 
