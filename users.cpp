@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 #include "utils.cpp"
 using namespace std;
 
@@ -57,6 +59,12 @@ class Payment{
 class User{
     protected:
         string username, password;
+    
+    public:
+        User(string username, string password){
+            this->username = username;
+            this->password = password;
+        }
 };
 
 class Customer : private User {
@@ -64,8 +72,49 @@ class Customer : private User {
         int id;
         string cnic, mobileNumber, drivingLincese;
         bool bikeLincese, carLincese;
+        Payment* payment;
+
 };
 
 class Admin: private User{
+
+    public:
+        int addVehicle(){
+            string brand, model, id,  fuelType;
+            int power,  year, noOfPassengers;
+            float milage,  rentPerDay;
+            bool available;
+
+            cout << "Enter Brand: ";
+            getline(cin, brand);
+            cin.ignore();
+            cout << "Enter Model: ";
+            getline(cin, model);
+            cin.ignore();
+            cout << "Enter ID: ";
+            getline(cin, id);
+            cin.ignore();
+            cout << "Enter Fuel Type: ";
+            getline(cin, fuelType);
+            cin.ignore();
+            cout << "Enter Power: ";
+            cin >> power;
+            cout << "Enter Year: ";
+            cin >> year;
+            cout << "Enter Number of Passengers: ";
+            cin >> noOfPassengers;
+            cout << "Enter Milage: ";
+            cin >> milage;
+            cout << "Enter Rent Per Day: ";
+            cin >> rentPerDay;
+            available = true;
+
+            ofstream file;
+            file.open("vehicles.txt", ios::app);
+            file << brand << "," << model << "," << id << "," << fuelType << "," << power << "," << year << "," << noOfPassengers << "," << milage << "," << rentPerDay << "," << available << endl;
+            file.close();
+
+            return 0;
+        }
 
 };
