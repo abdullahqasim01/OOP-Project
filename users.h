@@ -141,6 +141,11 @@ class Admin: private User{
             available = true;
 
             Vehicle* vehicle = new Vehicle(brand, model, id, fuelType, power, year, noOfPassengers, 0, milage, rentPerDay, available, type);
+
+            ofstream file("vehicles.txt", ios::app);
+            file << brand << "," << model << "," << id << "," << fuelType << "," << power << "," << year << "," << noOfPassengers << "," << 0 << "," << milage << "," << rentPerDay << "," << available << "," << type << endl;
+            file.close();
+
             return vehicle;
         }
 
