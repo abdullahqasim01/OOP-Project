@@ -68,6 +68,7 @@ class User{
         User(string username, string password, string role){
             this->username = username;
             this->password = password;
+            this->role = role;
         }
 
         int login(){
@@ -90,10 +91,8 @@ class User{
                 else if(u == username && p != password){
                     return -1;
                 }
-                else {
-                    return -2;
-                }
             }
+            return -2;
         }
 
         int register_(){
@@ -104,26 +103,43 @@ class User{
             return 0;
         }
 
-        int register_(int id, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese){
+        int register_(string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese){
+            if (role != "Customer"){
+                return -1;
+            }
+            string bikeLinceseT = "0";
+            string carLinceseT = "0";
+            if (bikeLincese){
+                bikeLinceseT = "1";
+            }
+            if (carLincese){
+                carLinceseT = "1";
+            }
             ofstream file;
             file.open("customers.txt", ios::app);
-            file << username << "," << password << "," << id << "," << cnic << "," << mobileNumber << "," << drivingLincese << "," << bikeLincese << "," << carLincese << endl;
+            file << username << "," << password << "," << cnic << "," << mobileNumber << "," << drivingLincese << "," << bikeLinceseT << "," << carLinceseT << endl;
             file.close();
             return 0;
         
         }
 };
 
-class Customer : private User {
+class Customer : public User {
     protected:
-        int id;
         string cnic, mobileNumber, drivingLincese;
         bool bikeLincese, carLincese;
         Payment* payment;
 
     public:
-        Customer(string username, string password, int id, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese): User(username, password, "Customer"){
-            this->id = id;
+        Customer(string username, string password): User(username, password, "Customer"){
+            this->cnic = "";
+            this->mobileNumber = "";
+            this->drivingLincese = "";
+            this->bikeLincese = false;
+            this->carLincese = false;
+        }
+
+        Customer(string username, string password, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese): User(username, password, "Customer"){
             this->cnic = cnic;
             this->mobileNumber = mobileNumber;
             this->drivingLincese = drivingLincese;
@@ -131,11 +147,41 @@ class Customer : private User {
             this->carLincese = carLincese;
         }
 
+        void load_data(){
+            ifstream file("customers.txt");
+            string line;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string u, p;
+                getline(ss, u, ',');
+                getline(ss, p, ',');
+                string temp;
+                if(u == username){
+                    getline(ss, cnic, ',');
+                    getline(ss, mobileNumber, ',');
+                    getline(ss, drivingLincese, ',');
+                    getline(ss, temp, ',');
+                    if(temp == "1"){
+                        bikeLincese = true;
+                    }else{
+                        bikeLincese = false;
+                    }
+                    getline(ss, temp, ',');
+                    if(temp == "1"){
+                        carLincese = true;
+                    }else{
+                        carLincese = false;
+                    }
+                    break;
+                }
+            }
+            file.close();
         
+        }
 
 };
 
-class Admin: private User{
+class Admin: public User{
 
     public:
 
