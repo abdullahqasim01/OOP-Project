@@ -69,6 +69,26 @@ class User{
             this->username = username;
             this->password = password;
         }
+
+        int login(){
+            ifstream file("users.txt");
+            string u, p;
+            string line;
+            while(getline(file, line)){
+                stringstream ss(line);
+                getline(ss, u, ',');
+                getline(ss, p, ',');
+                if(u == username && p == password){
+                    return 0;
+                }
+                else if(u == username && p != password){
+                    return -1;
+                }
+                else {
+                    return -2;
+                }
+            }
+        }
 };
 
 class Customer : private User {
