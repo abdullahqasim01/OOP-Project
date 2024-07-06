@@ -5,12 +5,12 @@ using namespace std;
 class Vehicle{
     protected:
         string brand, model, id, fuelType;
-        int power, year;
+        int power, year, noOfPassengers, loadCapacity;
         float milage, rentPerDay;
         bool available;
     
     public:
-        Vehicle(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available){
+        Vehicle(string brand, string model, string id, string fuelType, int power, int year, int noOfPassengers, int loadCapacity, float milage, float rentPerDay, bool available){
             this->brand = brand;
             this->model = model;
             this->id = id;
@@ -20,6 +20,8 @@ class Vehicle{
             this->milage = milage;
             this->rentPerDay =  rentPerDay;
             this->available = available;
+            this->noOfPassengers = noOfPassengers;
+            this->loadCapacity = loadCapacity;
         }
 
         void setAvailable(bool available){
@@ -59,45 +61,5 @@ class Vehicle{
             return brand;
         }
 
-
-};
-
-class Car : private Vehicle{
-    private:
-        int noOfPassengers;
-    
-    public:
-        Car(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available, int noOfPassengers): Vehicle(brand, model, id, fuelType, power, year, milage, rentPerDay, available){
-            this->noOfPassengers = noOfPassengers;
-        }
-        int getNoOfPassengers(){
-            return noOfPassengers;
-        }
-};
-
-class Cargo : private Vehicle{
-    private:
-        int loadCapacity;
-
-    public:
-        Cargo(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available, int loadCapacity) : Vehicle(brand, model, id, fuelType, power, year, milage, rentPerDay, available){
-            this->loadCapacity = loadCapacity;
-        }
-        int getLoadCapacity(){
-            return loadCapacity;
-        }
-};
-
-class Bike : private Vehicle{
-    private:
-        int noOfPassengers;
-    
-    public:
-        Bike(string brand, string model, string id, string fuelType, int power, int year, float milage, float rentPerDay, bool available, int noOfPassengers) : Vehicle(brand, model, id, fuelType, power, year, milage, rentPerDay, available){
-            this->noOfPassengers = noOfPassengers;
-        }
-        int getNoOfPassengers(){
-            return noOfPassengers;
-        }
 
 };
