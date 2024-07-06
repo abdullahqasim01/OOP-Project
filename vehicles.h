@@ -3,6 +3,7 @@
 #define VEHICLES_H
 
 #include <iostream>
+#include<iomanip>
 using namespace std;
 
 
@@ -14,6 +15,21 @@ class Vehicle{
         bool available;
     
     public:
+        Vehicle(){
+            brand = "";
+            model = "";
+            id = "";
+            fuelType = "";
+            type = "";
+            power = 0;
+            year = 0;
+            noOfPassengers = 0;
+            loadCapacity = 0;
+            milage = 0;
+            rentPerDay = 0;
+            available = false;
+        }
+
         Vehicle(string brand, string model, string id, string fuelType, int power, int year, int noOfPassengers, int loadCapacity, float milage, float rentPerDay, bool available, string type){
             this->brand = brand;
             this->model = model;
@@ -70,6 +86,10 @@ class Vehicle{
         }
         int getLoadCapacity(){
             return loadCapacity;
+        }
+
+        void display(){
+            cout << setw(10) << id << setw(10) << brand << setw(10) << model << setw(10) << year << setw(10) << rentPerDay << setw(10) << milage << setw(10) << milage << setw(10) << fuelType << setw(10) << type << endl;
         }
 
 };
