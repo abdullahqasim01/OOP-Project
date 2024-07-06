@@ -68,11 +68,16 @@ class User{
         User(string username, string password, string role){
             this->username = username;
             this->password = password;
-            this->role = role;
         }
 
         int login(){
-            ifstream file("users.txt");
+            ifstream file;
+            if (role == "Customer"){
+                file.open("customers.txt");
+            }
+            else if(role == "Admin"){
+                file.open("admins.txt");
+            }
             string u, p;
             string line;
             while(getline(file, line)){
@@ -90,6 +95,23 @@ class User{
                 }
             }
         }
+
+        int register_(){
+            ofstream file;
+            file.open("admins.txt", ios::app);
+            file << username << "," << password << endl;
+            file.close();
+            return 0;
+        }
+
+        int register_(int id, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese){
+            ofstream file;
+            file.open("customers.txt", ios::app);
+            file << username << "," << password << "," << id << "," << cnic << "," << mobileNumber << "," << drivingLincese << "," << bikeLincese << "," << carLincese << endl;
+            file.close();
+            return 0;
+        
+        }
 };
 
 class Customer : private User {
@@ -100,14 +122,13 @@ class Customer : private User {
         Payment* payment;
 
     public:
-        Customer(string username, string password, int id, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese, Payment* payment): User(username, password, "Customer"){
+        Customer(string username, string password, int id, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese): User(username, password, "Customer"){
             this->id = id;
             this->cnic = cnic;
             this->mobileNumber = mobileNumber;
             this->drivingLincese = drivingLincese;
             this->bikeLincese = bikeLincese;
             this->carLincese = carLincese;
-            this->payment = payment;
         }
 
         
