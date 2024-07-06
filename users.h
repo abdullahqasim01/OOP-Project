@@ -178,10 +178,29 @@ class Admin: private User{
             Vehicle* vehicle = new Vehicle(brand, model, id, fuelType, power, year, noOfPassengers, 0, milage, rentPerDay, available, type);
 
             ofstream file("vehicles.txt", ios::app);
-            file << brand << "," << model << "," << id << "," << fuelType << "," << power << "," << year << "," << noOfPassengers << "," << 0 << "," << milage << "," << rentPerDay << "," << available << "," << type << endl;
+            file << id << "," << brand << "," << model << "," << fuelType << "," << power << "," << year << "," << noOfPassengers << "," << 0 << "," << milage << "," << rentPerDay << "," << available << "," << type << endl;
             file.close();
 
             return vehicle;
+        }
+
+        int deleteCar(string id){
+            ifstream file("vehicles.txt");
+            ofstream temp("temp.txt");
+            string line;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string Id;
+                getline(ss, Id, ',');
+                if(Id != id){
+                    temp << line << endl;
+                }
+            }
+            file.close();
+            temp.close();
+            remove("vehicles.txt");
+            rename("temp.txt", "vehicles.txt");
+            return 0;
         }
 
 };

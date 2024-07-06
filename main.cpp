@@ -13,15 +13,7 @@ void showWelcomeScreen();
 void showAllAvailiableVehicles(Vehicle vehicles[], int n);
 
 int main() {
-    Vehicle v[5];
-
-    v[0] = Vehicle("Toyota", "Innova", "KA01 1234", "Petrol", 1500, 2019, 7, 500, 12.5, 2500, true, "Car");
-    v[1] = Vehicle("Toyota", "Fortuner", "KA01 1235", "Diesel", 2000, 2018, 7, 500, 10.5, 3500, true, "Car");
-    v[2] = Vehicle("Suzuki", "Access", "KA01 1236", "Petrol", 150, 2019, 2, 50, 50, 500, true, "Bike");
-    v[3] = Vehicle("Honda", "Activa", "KA01 1237", "Petrol", 100, 2019, 2, 50, 60, 400, true, "Bike");
-    v[4] = Vehicle("Mahindra", "Bolero", "KA01 1238", "Diesel", 1500, 2017, 9, 500, 9.5, 3000, true, "Car");
-
-    showAllAvailiableVehicles(v, 5);
+    
 }
 
 void showWelcomeScreen(){
