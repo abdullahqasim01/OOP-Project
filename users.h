@@ -62,12 +62,13 @@ class Payment{
 
 class User{
     protected:
-        string username, password;
+        string username, password, role;
     
     public:
-        User(string username, string password){
+        User(string username, string password, string role){
             this->username = username;
             this->password = password;
+            this->role = role;
         }
 
         int login(){
@@ -98,13 +99,26 @@ class Customer : private User {
         bool bikeLincese, carLincese;
         Payment* payment;
 
+    public:
+        Customer(string username, string password, int id, string cnic, string mobileNumber, string drivingLincese, bool bikeLincese, bool carLincese, Payment* payment): User(username, password, "Customer"){
+            this->id = id;
+            this->cnic = cnic;
+            this->mobileNumber = mobileNumber;
+            this->drivingLincese = drivingLincese;
+            this->bikeLincese = bikeLincese;
+            this->carLincese = carLincese;
+            this->payment = payment;
+        }
+
+        
+
 };
 
 class Admin: private User{
 
     public:
 
-        Admin(string username, string password): User(username, password){
+        Admin(string username, string password): User(username, password, "Admin"){
         }
 
         Vehicle* addVehicle(){
