@@ -1,18 +1,21 @@
 #include <iostream>
-#include "users.cpp"
-#include "vehicles.cpp"
+#include <fstream>
+#include <string>
+#include "users.h"
+#include "vehicles.h"
+#include "utils.h"
 using namespace std;
 
+void showWelcomeScreen(){
+    cout << "Welcome to Vehicle Rental System" << endl;
+    cout << "1. Login" << endl;
+    cout << "2. Register" << endl;
+    cout << "3. Admin Login" << endl;
+    cout << "4. Exit" << endl;
+}
+
 int main() {
-    Payment p("1234567890123456", "John Doe", "Visa", 2025, 12, 123);
-    int status = p.makePayment(1000);
-    if(status == 0){
-        cout << "Payment Successful" << endl;
-    }
-    else if(status == -1){
-        cout << "Card Expired" << endl;
-    }
-    else if(status == -2){
-        cout << "Invalid CVV" << endl;
-    }
+    Vehicle* v[10];
+
+    v[0] = new Vehicle("Toyota", "Innova", "KA01 1234", "Petrol", 2000, 2018, 7, 500, 12.5, 2000, true, "Car");
 }
