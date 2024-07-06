@@ -10,8 +10,7 @@ using namespace std;
 class Vehicle{
     protected:
         string brand, model, id, fuelType, type;
-        int power, year, noOfPassengers, loadCapacity;
-        float milage, rentPerDay;
+        int power, year, noOfPassengers, loadCapacity, milage, rentPerDay;
         bool available;
     
     public:
@@ -30,7 +29,7 @@ class Vehicle{
             available = false;
         }
 
-        Vehicle(string brand, string model, string id, string fuelType, int power, int year, int noOfPassengers, int loadCapacity, float milage, float rentPerDay, bool available, string type){
+        Vehicle(string brand, string model, string id, string fuelType, int power, int year, int noOfPassengers, int loadCapacity, int milage, int rentPerDay, bool available, string type){
             this->brand = brand;
             this->model = model;
             this->id = id;
@@ -51,16 +50,16 @@ class Vehicle{
         bool getAvailable(){
             return available;
         }
-        void setRentPerDay(float rentPerDay){
+        void setRentPerDay(int rentPerDay){
             this->rentPerDay = rentPerDay;
         }
-        float getRentPerDay(){
+        int getRentPerDay(){
             return rentPerDay;
         }
-        void setMilage(float milage){
+        void setMilage(int milage){
             this->milage = milage;
         }
-        float getMilage(){
+        int getMilage(){
             return milage;
         }
         int getYear(){
@@ -89,7 +88,7 @@ class Vehicle{
         }
 
         void display(){
-            cout << setw(10) << id << setw(10) << brand << setw(10) << model << setw(10) << year << setw(10) << rentPerDay << setw(10) << milage << setw(10) << milage << setw(10) << fuelType << setw(10) << type << endl;
+            cout << setw(10) << id << setw(10) << type << setw(10) << brand << setw(10) << model << setw(10) << year << setw(10) << rentPerDay << setw(10) << milage << setw(10) << power << setw(10) << fuelType << setw(10) << noOfPassengers << setw(10) << loadCapacity << endl;
         }
 
 };

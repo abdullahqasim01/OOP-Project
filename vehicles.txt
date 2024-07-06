@@ -1,0 +1,1 @@
+car-01,toyota,corrola,petrol,car,1300,2022,4,5,65,4500,1

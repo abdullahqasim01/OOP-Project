@@ -23,4 +23,12 @@ int getYear(){
     return 1900 + ltm->tm_year;
 }
 
+int sti(string s){
+    int x;
+    stringstream ss;
+    ss << s;
+    ss >> x;
+    return x;
+}
+
 #endif

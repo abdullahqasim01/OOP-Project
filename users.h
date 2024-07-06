@@ -190,47 +190,46 @@ class Admin: public User{
 
         Vehicle* addVehicle(){
             string brand, model, id, type, fuelType;
-            int power,  year, noOfPassengers, loadCapacity;
-            float milage,  rentPerDay;
+            int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay;
             bool available;
-
+            
+            cin.ignore();
             cout << "Enter Brand: ";
             getline(cin, brand);
-            cin.ignore();
             cout << "Enter Model: ";
             getline(cin, model);
-            cin.ignore();
             cout << "Enter Type: ";
             getline(cin, type);
-            cin.ignore();
             cout << "Enter ID: ";
             getline(cin, id);
-            cin.ignore();
             cout << "Enter Fuel Type: ";
             getline(cin, fuelType);
-            cin.ignore();
             cout << "Enter Power: ";
             cin >> power;
             cout << "Enter Year: ";
             cin >> year;
             cout << "Enter Number of Passengers: ";
             cin >> noOfPassengers;
+            cout << "Enter Load Capacity: ";
+            cin >> loadCapacity;
             cout << "Enter Milage: ";
             cin >> milage;
             cout << "Enter Rent Per Day: ";
             cin >> rentPerDay;
             available = true;
 
-            Vehicle* vehicle = new Vehicle(brand, model, id, fuelType, power, year, noOfPassengers, 0, milage, rentPerDay, available, type);
+            Vehicle* vehicle = new Vehicle(brand, model, id, fuelType, power, year, noOfPassengers, loadCapacity, milage, rentPerDay, available, type);
+
+
 
             ofstream file("vehicles.txt", ios::app);
-            file << id << "," << brand << "," << model << "," << fuelType << "," << power << "," << year << "," << noOfPassengers << "," << 0 << "," << milage << "," << rentPerDay << "," << available << "," << type << endl;
+            file << id << "," << brand << "," << model << "," << fuelType << "," << type  << "," << power << "," << year << "," << noOfPassengers << "," << loadCapacity << "," << milage << "," << rentPerDay << "," << 1 << endl;
             file.close();
 
             return vehicle;
         }
 
-        int deleteCar(string id){
+        int removeVehicle(string id){
             ifstream file("vehicles.txt");
             ofstream temp("temp.txt");
             string line;
@@ -248,6 +247,7 @@ class Admin: public User{
             rename("temp.txt", "vehicles.txt");
             return 0;
         }
+        
 
 };
 
