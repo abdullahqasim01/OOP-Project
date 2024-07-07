@@ -12,7 +12,7 @@
 using namespace std;
 
 void showWelcomeScreen();
-void showAllAvailiableVehicles(Vehicle* vehicles[], int n);
+int showAllAvailiableVehicles(Vehicle* vehicles[], int n);
 void showAdminMenu();
 void showCustomerMenu();
 void loadVehicles(Vehicle* vehicles[], int n);
@@ -36,6 +36,7 @@ int main() {
         cin >> choice;
 
         if (choice == 1){
+            system("cls");
             string username, password;
             cin.ignore();
             cout << "Enter username: ";
@@ -48,15 +49,20 @@ int main() {
             if(status == 0){
                 customer->load_data();
                 int customerChoice = 0;
+                system("cls");
+                cout << "Welcome " << username << endl;
                 while (customerChoice != 4){
-                    system("cls");
                     showCustomerMenu();
                     cin >> customerChoice;
                     
                     switch (customerChoice)
                     {
                         case 1:
-                            showAllAvailiableVehicles(vehicles, n);
+                            system("cls");
+                            if (showAllAvailiableVehicles(vehicles, n) == -1){
+                                cout << "No vehicles availiable" << endl;
+                                break;
+                            }
                             cout << "Enter ID of vehicle to rent: ";
                             cin >> id;
                             for (int i = 0; i < n; i++){
@@ -65,15 +71,13 @@ int main() {
                                     break;
                                 }
                             }
-                            status = customer->rentVehicle(vehicles[index], n);
+                            cout << "Enter number of days to rent: ";
+                            int days;
+                            cin >> days;
+                            status = customer->rentVehicle(vehicles[index], days);
                             if(status == 0){
+                                system("cls");
                                 cout << "Vehicle rented successfully" << endl;
-                            }
-                            else if(status == -1){
-                                cout << "Vehicle not found" << endl;
-                            }
-                            else if(status == -2){
-                                cout << "Vehicle already rented" << endl;
                             }
                             break;
                         
@@ -90,20 +94,17 @@ int main() {
                             }
                             status = customer->returnVehicle(vehicles[index]);
                             if(status == 0){
+                                system("cls");
                                 cout << "Vehicle returned successfully" << endl;
-                            }
-                            else if(status == -1){
-                                cout << "Vehicle not found" << endl;
-                            }
-                            else if(status == -2){
-                                cout << "Vehicle not rented" << endl;
                             }
                             break;
                         
                         case 3:
+                            system("cls");
                             customer->showRentedVehicles();
                             cout << "Press any key to continue" << endl;
                             getch();
+                            system("cls");
                             break;
 
                         case 4:
@@ -129,7 +130,7 @@ int main() {
         else if(choice == 2){
         string cnic, mobileNumber, drivingLincese, username, password;
         bool bikeLincese, carLincese;
-
+        system("cls");
         cin.ignore();
         cout << "Enter username: ";
         getline(cin, username);
@@ -150,11 +151,13 @@ int main() {
         status = customer->register_(cnic, mobileNumber, drivingLincese, bikeLincese, carLincese);
         cout << status << endl;
         if(status == 0){
+            system("cls");
             cout << "User registered successfully" << endl;
             }
         }
 
         else if(choice == 3){
+            system("cls");
             string username, password;
             cin.ignore();
             cout << "Enter username: ";
@@ -181,11 +184,16 @@ int main() {
                             break;
                         
                         case 2:
-                            showAllAvailiableVehicles(vehicles, n);
+                            system("cls");
+                            if (showAllAvailiableVehicles(vehicles, n)){
+                                cout << "No vehicles availiable" << endl;
+                                break;
+                            }
                             cout << "Enter ID of vehicle to remove: ";
                             cin >> id;
                             status = admin->removeVehicle(id);
                             if(status == 0){
+                                system("cls");
                                 cout << "Vehicle removed successfully" << endl;
                             }
                             else{
@@ -194,7 +202,11 @@ int main() {
                             break;
                         
                         case 3:
-                            showAllAvailiableVehicles(vehicles, n);
+                            system("cls");
+                            if (showAllAvailiableVehicles(vehicles, n)){
+                                cout << "No vehicles availiable" << endl;
+                                break;
+                            }
                             cout << "Enter ID of vehicle to edit: ";
                             cin >> id;
                             for(int i = 0; i < n; i++){
@@ -205,6 +217,7 @@ int main() {
                             }
                             status = admin->editVehicle(vehicles[index]);
                             if(status == 0){
+                                system("cls");
                                 cout << "Vehicle edited successfully" << endl;
                             }
                             else{
@@ -213,34 +226,49 @@ int main() {
                             break;
 
                         case 4:
+                            system("cls");
                             admin->showAllCustomers();
                             cout << "Press any key to continue" << endl;
                             getch();
+                            system("cls");
                             break;
 
                         case 5:
+                            system("cls");
                             admin->showAllVehicles();
                             cout << "Press any key to continue" << endl;
                             getch();
+                            system("cls");
                             break;
 
                         case 6:
+                            system("cls");
                             showAllAvailiableVehicles(vehicles, n);
                             cout << "Press any key to continue" << endl;
                             getch();
+                            system("cls");
                             break;
 
                         case 7:
+                            system("cls");
                             admin->showRentedVehicles();
                             cout << "Press any key to continue" << endl;
                             getch();
+                            system("cls");
                             break;
 
                         case 8:
+                            system("cls");
                             admin->searchVehicle();
                             cout << "Press any key to continue" << endl;
                             getch();
+                            system("cls");
                             break;
+
+                        case 9:
+                            system("cls");
+                            break;
+
 
                         default:
                             break;
@@ -267,7 +295,7 @@ int main() {
             cout << "Invalid choice" << endl;
             showWelcomeScreen();
         }
-
+    system("cls");
     continue;
     }
 
@@ -286,8 +314,7 @@ void showCustomerMenu(){
     cout << "1. Rent Vehicle" << endl;
     cout << "2. Return Vehicle" << endl;
     cout << "3. Show All Rented Vehicles" << endl;
-    cout << "4. Search Vehicle" << endl;
-    cout << "5. Logout" << endl;
+    cout << "4. Logout" << endl;
 }
 
 void showAdminMenu(){
@@ -314,8 +341,8 @@ void loadVehicles(Vehicle* vehicles[], int n){
     string brand, model, id, type, fuelType;
     int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
     // bool available;
-    getline(file, temp);
-    sti(temp);
+    // getline(file, temp);
+    // sti(temp);
     for(int i = 0; i < n; i++){
         getline(file, temp);
 
@@ -353,9 +380,20 @@ void loadVehicles(Vehicle* vehicles[], int n){
 
     }
     file.close();
+
+    // getch();
 }
 
-void showAllAvailiableVehicles(Vehicle* vehicles[], int n){
+int showAllAvailiableVehicles(Vehicle* vehicles[], int n){
+    int count = 0;
+    for(int i = 0; i < n; i++){
+        if(vehicles[i]->getAvailable()){
+            count++;
+        }
+    }
+    if(count == 0){
+        return -1;
+    }
     cout << "All Availiable Vehicles" << endl;
     cout << setw(10) << "ID" << setw(10) << "Type" << setw(10) << "Brand" << setw(10) << "Model" << setw(10) << "Year" << setw(10) << "Rent/Day" << setw(10) << "Milage" << setw(10) << "Power" << setw(10) << "Fuel Type" << setw(10) << "Passengers" << setw(10) << "Load Capacity" << endl;
 
@@ -364,4 +402,5 @@ void showAllAvailiableVehicles(Vehicle* vehicles[], int n){
             vehicles[i]->display();
         }
     }
+    return 0;
 }

@@ -183,47 +183,48 @@ class Customer : public User {
 
         int rentVehicle(Vehicle* vehicle, int days){
             float amount = days * vehicle->getRentPerDay();
-            int status = payment->makePayment(amount);
+            string id = vehicle->getId();
+            // int status = payment->makePayment(amount);
+            int status = 0;
             if(status == 0){
                 vehicle->setAvailable(false);
-                ofstream file("vehicles.txt");
-                ifstream file_("vehicles.txt");
-                ofstream temp("temp.txt");
-                string line;
-                while(getline(file_, line)){
-                    stringstream ss(line);
-                    string Id, brand, model, fuelType, type;
-                    int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
-                    string t;
-                    getline(ss, Id, ',');
-                    getline(ss, brand, ',');
-                    getline(ss, model, ',');
-                    getline(ss, fuelType, ',');
-                    getline(ss, type, ',');
-                    getline(ss, t, ',');
-                    power = sti(t);
-                    getline(ss, t, ',');
-                    year = sti(t);
-                    getline(ss, t, ',');
-                    noOfPassengers = sti(t);
-                    getline(ss, t, ',');
-                    loadCapacity = sti(t);
-                    getline(ss, t, ',');
-                    milage = sti(t);
-                    getline(ss, t, ',');
-                    rentPerDay = sti(t);
-                    getline(ss, t, ',');
-                    available = sti(t);
+                ifstream file("vehicles.txt");
+            ofstream temp("temp.txt");
+            string line;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string Id, brand, model, fuelType, type;
+                int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
+                string t;
+                getline(ss, Id, ',');
+                getline(ss, brand, ',');
+                getline(ss, model, ',');
+                getline(ss, fuelType, ',');
+                getline(ss, type, ',');
+                getline(ss, t, ',');
+                power = sti(t);
+                getline(ss, t, ',');
+                year = sti(t);
+                getline(ss, t, ',');
+                noOfPassengers = sti(t);
+                getline(ss, t, ',');
+                loadCapacity = sti(t);
+                getline(ss, t, ',');
+                milage = sti(t);
+                getline(ss, t, ',');
+                rentPerDay = sti(t);
+                getline(ss, t, ',');
+                available = sti(t);
 
-                    if(Id == vehicle->getId()){
-                        available = 0;
-                    }
-                    temp << Id << "," << brand << "," << model << "," << fuelType << "," << type  << "," << power << "," << year << "," << noOfPassengers << "," << loadCapacity << "," << milage << "," << rentPerDay << "," << available << endl;
+                if(Id == id){
+                    available = 0;
                 }
-                file_.close();
-                temp.close();
-                remove("vehicles.txt");
-                rename("temp.txt", "vehicles.txt");
+                temp << Id << "," << brand << "," << model << "," << fuelType << "," << type  << "," << power << "," << year << "," << noOfPassengers << "," << loadCapacity << "," << milage << "," << rentPerDay << "," << available << endl;
+            }
+            file.close();
+            temp.close();
+            remove("vehicles.txt");
+            rename("temp.txt", "vehicles.txt");
 
                 ofstream rentFile("rent.txt", ios::app);
                 rentFile << username << "," << vehicle->getId() << "," << days << "," << amount << endl;
@@ -492,7 +493,7 @@ class Admin: public User{
         }
 
         int editVehicle(Vehicle* vehicle){
-            string brand, model, id, type, fuelType;
+            string brand, model, id, type, fuelType, Id;
             int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay;
             bool available;
 
@@ -529,7 +530,7 @@ class Admin: public User{
             cout << "Enter ID: ";
             getline(cin, te);
             if (te != "0")
-                id = te;
+                Id = te;
             cout << "Enter Fuel Type: ";
             getline(cin, te);
             if (te != "0")
@@ -566,7 +567,7 @@ class Admin: public User{
             
             vehicle->setBrand(brand);
             vehicle->setModel(model);
-            vehicle->setId(id);
+            vehicle->setId(Id);
             vehicle->setFuelType(fuelType);
             vehicle->setType(type);
             vehicle->setPower(power);

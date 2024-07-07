@@ -1,1 +1,2 @@
-SUV-01,Toyota,Fortuner,Diesel,SUV,4000,2022,6,500,45,10000,1
+car-01,toyota,corrola,petrol,car,1300,2022,4,5,65,4500,1
+suv-01,Toyotq,Fortuner,diesel,suv,4500,2024,123,12,23,24,1
