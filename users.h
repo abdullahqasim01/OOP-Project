@@ -248,6 +248,221 @@ class Admin: public User{
             return 0;
         }
         
+        void showAllCustomers(){
+            ifstream file("customers.txt");
+            string line;
+            cout << setw(10) << "Username" << setw(10) << "CNIC" << setw(10) << "Mobile Number" << setw(10) << "Driving Lincese" << setw(10) << "Bike Lincese" << setw(10) << "Car Lincese" << endl;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string u, p, cnic, mobileNumber, drivingLincese, bikeLincese, carLincese;
+                getline(ss, u, ',');
+                getline(ss, p, ',');
+                getline(ss, cnic, ',');
+                getline(ss, mobileNumber, ',');
+                getline(ss, drivingLincese, ',');
+                getline(ss, bikeLincese, ',');
+                getline(ss, carLincese, ',');
+                cout << setw(10) << u << setw(10) << cnic << setw(10) << mobileNumber << setw(10) << drivingLincese << setw(10) << bikeLincese << setw(10) << carLincese << endl;
+            }
+            file.close();
+        }
+
+        void showAllVehicles(){
+            ifstream file("vehicles.txt");
+            string line;
+            cout << setw(10) << "ID" << setw(10) << "Type" << setw(10) << "Brand" << setw(10) << "Model" << setw(10) << "Year" << setw(10) << "Rent/Day" << setw(10) << "Milage" << setw(10) << "Power" << setw(10) << "Fuel Type" << setw(10) << "Passengers" << setw(10) << "Load Capacity" << setw(10) << "Availiable" << endl;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string id, brand, model, fuelType, type;
+                int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
+                bool availiableBool;
+                string t;
+                getline(ss, id, ',');
+                getline(ss, brand, ',');
+                getline(ss, model, ',');
+                getline(ss, fuelType, ',');
+                getline(ss, type, ',');
+                getline(ss, t, ',');
+                power = sti(t);
+                getline(ss, t, ',');
+                year = sti(t);
+                getline(ss, t, ',');
+                noOfPassengers = sti(t);
+                getline(ss, t, ',');
+                loadCapacity = sti(t);
+                getline(ss, t, ',');
+                milage = sti(t);
+                getline(ss, t, ',');
+                rentPerDay = sti(t);
+                getline(ss, t, ',');
+                available = sti(t);
+
+                if(available == 1){
+                    availiableBool = true;
+                }else{
+                    availiableBool = false;
+                }
+                cout << setw(10) << id << setw(10) << type << setw(10) << brand << setw(10) << model << setw(10) << year << setw(10) << rentPerDay << setw(10) << milage << setw(10) << power << setw(10) << fuelType << setw(10) << noOfPassengers << setw(10) << loadCapacity << setw(10) << availiableBool << endl;
+            }
+            file.close();
+        }
+
+
+        void searchVehicle(){
+            ifstream file("vehicles.txt");
+            string line;
+            cout << "Enter ID: ";
+            string id;
+            cin >> id;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string Id, brand, model, fuelType, type;
+                int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
+                bool availiableBool;
+                string t;
+                getline(ss, Id, ',');
+                getline(ss, brand, ',');
+                getline(ss, model, ',');
+                getline(ss, fuelType, ',');
+                getline(ss, type, ',');
+                getline(ss, t, ',');
+                power = sti(t);
+                getline(ss, t, ',');
+                year = sti(t);
+                getline(ss, t, ',');
+                noOfPassengers = sti(t);
+                getline(ss, t, ',');
+                loadCapacity = sti(t);
+                getline(ss, t, ',');
+                milage = sti(t);
+                getline(ss, t, ',');
+                rentPerDay = sti(t);
+                getline(ss, t, ',');
+                available = sti(t);
+
+                if(Id == id){
+                    if(available == 1){
+                        availiableBool = true;
+                    }else{
+                        availiableBool = false;
+                    }
+                    cout << setw(10) << Id << setw(10) << type << setw(10) << brand << setw(10) << model << setw(10) << year << setw(10) << rentPerDay << setw(10) << milage << setw(10) << power << setw(10) << fuelType << setw(10) << noOfPassengers << setw(10) << loadCapacity << setw(10) << availiableBool << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+
+        int editVehicle(Vehicle* vehicle){
+            string brand, model, id, type, fuelType;
+            int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay;
+            bool available;
+
+            brand = vehicle->getBrand();
+            model = vehicle->getModel();
+            id = vehicle->getId();
+            type = vehicle->getType();
+            fuelType = vehicle->getFuelType();
+            power = vehicle->getPower();
+            year = vehicle->getYear();
+            noOfPassengers = vehicle->getNoOfPassengers();
+            loadCapacity = vehicle->getLoadCapacity();
+            milage = vehicle->getMilage();
+            rentPerDay = vehicle->getRentPerDay();
+            available = vehicle->getAvailable();
+            
+            int t;
+            string te;
+
+            cin.ignore();
+            cout << "Enter 0 to keep the previous value";
+            cout << "Enter Brand: ";
+            getline(cin, te);
+            if (te != "0")
+                brand = te;
+            cout << "Enter Model: ";
+            getline(cin, te);
+            if (te != "0")
+                model = te;
+            cout << "Enter Type: ";
+            getline(cin, te);
+            if (te != "0")
+                type = te;
+            cout << "Enter ID: ";
+            getline(cin, te);
+            if (te != "0")
+                id = te;
+            cout << "Enter Fuel Type: ";
+            getline(cin, te);
+            if (te != "0")
+                fuelType = te;
+            cout << "Enter Power: ";
+            cin >> t;
+            if (t != 0)
+                power = t;
+            cout << "Enter Year: ";
+            cin >> t;
+            if (t != 0)
+                year = t;
+            cout << "Enter Number of Passengers: ";
+            cin >> t;
+            if (t != 0)
+                noOfPassengers = t;
+            cout << "Enter Load Capacity: ";
+            cin >> t;
+            if (t != 0)
+                loadCapacity = t;
+            cout << "Enter Milage: ";
+            cin >> t;
+            if (t != 0)
+                milage = t;
+            cout << "Enter Rent Per Day: ";
+            cin >> t;
+            if (t != 0)
+                rentPerDay = t;
+            cout << "Enter Availiable: ";
+            cin >> t;
+            if (t != 0)
+                available = t;
+            
+            
+            vehicle->setBrand(brand);
+            vehicle->setModel(model);
+            vehicle->setId(id);
+            vehicle->setFuelType(fuelType);
+            vehicle->setType(type);
+            vehicle->setPower(power);
+            vehicle->setYear(year);
+            vehicle->setNoOfPassengers(noOfPassengers);
+            vehicle->setLoadCapacity(loadCapacity);
+            vehicle->setMilage(milage);
+            vehicle->setRentPerDay(rentPerDay);
+            vehicle->setAvailable(available);
+
+            ifstream file("vehicles.txt");
+            ofstream temp("temp.txt");
+            string line;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string Id;
+                getline(ss, Id, ',');
+                if(Id != id){
+                    temp << line << endl;
+                }
+            }
+            file.close();
+            temp.close();
+            remove("vehicles.txt");
+            rename("temp.txt", "vehicles.txt");
+
+            ofstream file_("vehicles.txt", ios::app);
+            file_ << id << "," << brand << "," << model << "," << fuelType << "," << type  << "," << power << "," << year << "," << noOfPassengers << "," << loadCapacity << "," << milage << "," << rentPerDay << "," << 1 << endl;
+            file_.close();
+
+            return 0;
+        }
+
+
 
 };
 

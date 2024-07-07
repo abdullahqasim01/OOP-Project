@@ -44,6 +44,54 @@ class Vehicle{
             this->loadCapacity = loadCapacity;
         }
 
+        void setType(string type){
+            this->type = type;
+        }
+
+        string getType(){
+            return type;
+        }
+
+        void setBrand(string brand){
+            this->brand = brand;
+        }
+
+        string getBrand(){
+            return brand;
+        }
+
+        void setModel(string model){
+            this->model = model;
+        }
+
+        string getModel(){
+            return model;
+        }
+
+        void setId(string id){
+            this->id = id;
+        }
+
+        void setFuelType(string fuelType){
+            this->fuelType = fuelType;
+        }
+
+        void setPower(int power){
+            this->power = power;
+        }
+
+        void setYear(int year){
+            this->year = year;
+        }
+
+        void setNoOfPassengers(int noOfPassengers){
+            this->noOfPassengers = noOfPassengers;
+        }
+
+        void setLoadCapacity(int loadCapacity){
+            this->loadCapacity = loadCapacity;
+        }
+
         void setAvailable(bool available){
             this->available = available;
         }

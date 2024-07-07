@@ -123,8 +123,46 @@ int main() {
                         }
                         break;
                     
+                    case 3:
+                        showAllAvailiableVehicles(vehicles, n);
+                        cout << "Enter ID of vehicle to edit: ";
+                        cin >> id;
+                        int index = 0;
+                        for(int i = 0; i < n; i++){
+                            if(vehicles[i]->getId() == id){
+                                index = i;
+                                break;
+                            }
+                        }
+                        status = admin->editVehicle(vehicles[index]);
+                        if(status == 0){
+                            cout << "Vehicle edited successfully" << endl;
+                        }
+                        else{
+                            cout << "Vehicle not found" << endl;
+                        }
+                        break;
+
+                    case 4:
+                        admin->showAllCustomers();
+                        cout << "Press any key to continue" << endl;
+                        getch();
+                        break;
+
+                    case 5:
+                        admin->showAllVehicles();
+                        cout << "Press any key to continue" << endl;
+                        getch();
+                        break;
+
                     case 6:
                         showAllAvailiableVehicles(vehicles, n);
+                        cout << "Press any key to continue" << endl;
+                        getch();
+                        break;
+
+                    case 8:
+                        admin->searchVehicle();
                         cout << "Press any key to continue" << endl;
                         getch();
                         break;
@@ -165,7 +203,10 @@ void showWelcomeScreen(){
 }
 
 void showCustomerMenu(){
-
+    cout << "1. Rent Vehicle" << endl;
+    cout << "2. Return Vehicle" << endl;
+    cout << "5. Show All Rented Vehicles" << endl;
+    cout << "6. Search Vehicle" << endl;
 }
 
 void showAdminMenu(){
@@ -176,12 +217,13 @@ void showAdminMenu(){
     cout << "5. Show All Vehicles" << endl;
     cout << "6. Show All Available Vehicles" << endl;
     cout << "7. Show All Rented Vehicles" << endl;
-    cout << "8. Show All Payments" << endl;
-    cout << "9. Show Pending Payments" << endl;
-    cout << "10. Show Completed Payments" << endl;
-    cout << "11. Show History" << endl;
-    cout << "12. Show History of Specific Customer" << endl;
-    cout << "13. Generate Report" << endl;
+    cout << "8. Search Vehicle" << endl;
+    // cout << "8. Show All Payments" << endl;
+    // cout << "9. Show Pending Payments" << endl;
+    // cout << "10. Show Completed Payments" << endl;
+    // cout << "11. Show History" << endl;
+    // cout << "12. Show History of Specific Customer" << endl;
+    // cout << "13. Generate Report" << endl;
 }
 
 void loadVehicles(Vehicle* vehicles[], int n){
