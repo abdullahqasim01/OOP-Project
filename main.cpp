@@ -21,7 +21,7 @@ int main() {
     int n = 1;
     Vehicle* vehicles[n];
     loadVehicles(vehicles, n);
-
+    int index;
     Admin* admin;
     Customer* customer;
     int choice = 0;
@@ -47,7 +47,73 @@ int main() {
             status = customer->login();
             if(status == 0){
                 customer->load_data();
-                cout << "User logged in successfully" << endl;
+                int customerChoice = 0;
+                while (customerChoice != 4){
+                    system("cls");
+                    showCustomerMenu();
+                    cin >> customerChoice;
+                    
+                    switch (customerChoice)
+                    {
+                        case 1:
+                            showAllAvailiableVehicles(vehicles, n);
+                            cout << "Enter ID of vehicle to rent: ";
+                            cin >> id;
+                            for (int i = 0; i < n; i++){
+                                if (vehicles[i]->getId() == id){
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            status = customer->rentVehicle(vehicles[index], n);
+                            if(status == 0){
+                                cout << "Vehicle rented successfully" << endl;
+                            }
+                            else if(status == -1){
+                                cout << "Vehicle not found" << endl;
+                            }
+                            else if(status == -2){
+                                cout << "Vehicle already rented" << endl;
+                            }
+                            break;
+                        
+                        case 2:
+                            customer->showRentedVehicles();
+                            cout << "Enter ID of vehicle to return: ";
+                            cin >> id;
+                            int index;
+                            for (int i = 0; i < n; i++){
+                                if (vehicles[i]->getId() == id){
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            status = customer->returnVehicle(vehicles[index]);
+                            if(status == 0){
+                                cout << "Vehicle returned successfully" << endl;
+                            }
+                            else if(status == -1){
+                                cout << "Vehicle not found" << endl;
+                            }
+                            else if(status == -2){
+                                cout << "Vehicle not rented" << endl;
+                            }
+                            break;
+                        
+                        case 3:
+                            customer->showRentedVehicles();
+                            cout << "Press any key to continue" << endl;
+                            getch();
+                            break;
+
+                        case 4:
+                            break;
+                        
+                        default:
+                            break;
+                    }
+                    continue;
+                }
             }
             else if(status == -1){
                 system("cls");
@@ -100,77 +166,87 @@ int main() {
             status = admin->login();
             if(status == 0){
                 cout << "Admin logged in successfully" << endl;
-                showAdminMenu();
                 int adminChoice;
-                cin >> adminChoice;
-                switch (adminChoice)
-                {
-                    case 1:
-                        vehicles[0] =  admin->addVehicle();
-                        cout << "Vehicle added successfully" << endl;
-                        break;
-                    
-                    case 2:
-                        showAllAvailiableVehicles(vehicles, n);
-                        cout << "Enter ID of vehicle to remove: ";
-                        cin >> id;
-                        status = admin->removeVehicle(id);
-                        if(status == 0){
-                            cout << "Vehicle removed successfully" << endl;
-                        }
-                        else{
-                            cout << "Vehicle not found" << endl;
-                        }
-                        break;
-                    
-                    case 3:
-                        showAllAvailiableVehicles(vehicles, n);
-                        cout << "Enter ID of vehicle to edit: ";
-                        cin >> id;
-                        int index = 0;
-                        for(int i = 0; i < n; i++){
-                            if(vehicles[i]->getId() == id){
-                                index = i;
-                                break;
+                system("cls");
+                while (adminChoice != 9){
+                    showAdminMenu();
+                    cin >> adminChoice;
+                    switch (adminChoice)
+                    {
+                        case 1:
+                            system("cls");
+                            vehicles[0] =  admin->addVehicle();
+                            system("cls");
+                            cout << "Vehicle added successfully" << endl;
+                            break;
+                        
+                        case 2:
+                            showAllAvailiableVehicles(vehicles, n);
+                            cout << "Enter ID of vehicle to remove: ";
+                            cin >> id;
+                            status = admin->removeVehicle(id);
+                            if(status == 0){
+                                cout << "Vehicle removed successfully" << endl;
                             }
-                        }
-                        status = admin->editVehicle(vehicles[index]);
-                        if(status == 0){
-                            cout << "Vehicle edited successfully" << endl;
-                        }
-                        else{
-                            cout << "Vehicle not found" << endl;
-                        }
-                        break;
+                            else{
+                                cout << "Vehicle not found" << endl;
+                            }
+                            break;
+                        
+                        case 3:
+                            showAllAvailiableVehicles(vehicles, n);
+                            cout << "Enter ID of vehicle to edit: ";
+                            cin >> id;
+                            for(int i = 0; i < n; i++){
+                                if(vehicles[i]->getId() == id){
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            status = admin->editVehicle(vehicles[index]);
+                            if(status == 0){
+                                cout << "Vehicle edited successfully" << endl;
+                            }
+                            else{
+                                cout << "Vehicle not found" << endl;
+                            }
+                            break;
 
-                    case 4:
-                        admin->showAllCustomers();
-                        cout << "Press any key to continue" << endl;
-                        getch();
-                        break;
+                        case 4:
+                            admin->showAllCustomers();
+                            cout << "Press any key to continue" << endl;
+                            getch();
+                            break;
 
-                    case 5:
-                        admin->showAllVehicles();
-                        cout << "Press any key to continue" << endl;
-                        getch();
-                        break;
+                        case 5:
+                            admin->showAllVehicles();
+                            cout << "Press any key to continue" << endl;
+                            getch();
+                            break;
 
-                    case 6:
-                        showAllAvailiableVehicles(vehicles, n);
-                        cout << "Press any key to continue" << endl;
-                        getch();
-                        break;
+                        case 6:
+                            showAllAvailiableVehicles(vehicles, n);
+                            cout << "Press any key to continue" << endl;
+                            getch();
+                            break;
 
-                    case 8:
-                        admin->searchVehicle();
-                        cout << "Press any key to continue" << endl;
-                        getch();
-                        break;
+                        case 7:
+                            admin->showRentedVehicles();
+                            cout << "Press any key to continue" << endl;
+                            getch();
+                            break;
 
-                    default:
-                        break;
+                        case 8:
+                            admin->searchVehicle();
+                            cout << "Press any key to continue" << endl;
+                            getch();
+                            break;
+
+                        default:
+                            break;
+                    }
+                    continue;
                 }
-                continue;
             }
             else if(status == -1){
                 system("cls");
@@ -181,6 +257,10 @@ int main() {
                 cout << "Admin not found" << endl;
             }
             showWelcomeScreen();
+        }
+
+        else if(choice == 4){
+            break;
         }
 
         else{
@@ -205,8 +285,9 @@ void showWelcomeScreen(){
 void showCustomerMenu(){
     cout << "1. Rent Vehicle" << endl;
     cout << "2. Return Vehicle" << endl;
-    cout << "5. Show All Rented Vehicles" << endl;
-    cout << "6. Search Vehicle" << endl;
+    cout << "3. Show All Rented Vehicles" << endl;
+    cout << "4. Search Vehicle" << endl;
+    cout << "5. Logout" << endl;
 }
 
 void showAdminMenu(){
@@ -218,6 +299,7 @@ void showAdminMenu(){
     cout << "6. Show All Available Vehicles" << endl;
     cout << "7. Show All Rented Vehicles" << endl;
     cout << "8. Search Vehicle" << endl;
+    cout << "9. Logout" << endl;
     // cout << "8. Show All Payments" << endl;
     // cout << "9. Show Pending Payments" << endl;
     // cout << "10. Show Completed Payments" << endl;

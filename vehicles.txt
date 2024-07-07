@@ -1,0 +1,1 @@
+SUV-01,Toyota,Fortuner,Diesel,SUV,4000,2022,6,500,45,10000,1

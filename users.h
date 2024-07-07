@@ -122,6 +122,8 @@ class User{
             return 0;
         
         }
+
+        
 };
 
 class Customer : public User {
@@ -178,6 +180,142 @@ class Customer : public User {
             file.close();
         
         }
+
+        int rentVehicle(Vehicle* vehicle, int days){
+            float amount = days * vehicle->getRentPerDay();
+            int status = payment->makePayment(amount);
+            if(status == 0){
+                vehicle->setAvailable(false);
+                ofstream file("vehicles.txt");
+                ifstream file_("vehicles.txt");
+                ofstream temp("temp.txt");
+                string line;
+                while(getline(file_, line)){
+                    stringstream ss(line);
+                    string Id, brand, model, fuelType, type;
+                    int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
+                    string t;
+                    getline(ss, Id, ',');
+                    getline(ss, brand, ',');
+                    getline(ss, model, ',');
+                    getline(ss, fuelType, ',');
+                    getline(ss, type, ',');
+                    getline(ss, t, ',');
+                    power = sti(t);
+                    getline(ss, t, ',');
+                    year = sti(t);
+                    getline(ss, t, ',');
+                    noOfPassengers = sti(t);
+                    getline(ss, t, ',');
+                    loadCapacity = sti(t);
+                    getline(ss, t, ',');
+                    milage = sti(t);
+                    getline(ss, t, ',');
+                    rentPerDay = sti(t);
+                    getline(ss, t, ',');
+                    available = sti(t);
+
+                    if(Id == vehicle->getId()){
+                        available = 0;
+                    }
+                    temp << Id << "," << brand << "," << model << "," << fuelType << "," << type  << "," << power << "," << year << "," << noOfPassengers << "," << loadCapacity << "," << milage << "," << rentPerDay << "," << available << endl;
+                }
+                file_.close();
+                temp.close();
+                remove("vehicles.txt");
+                rename("temp.txt", "vehicles.txt");
+
+                ofstream rentFile("rent.txt", ios::app);
+                rentFile << username << "," << vehicle->getId() << "," << days << "," << amount << endl;
+                rentFile.close();
+
+                return 0;
+            }
+        }
+
+        int returnVehicle(Vehicle* vehicle){
+            vehicle->setAvailable(true);
+            string id = vehicle->getId();
+            ifstream file("vehicles.txt");
+            ofstream temp("temp.txt");
+            string line;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string Id, brand, model, fuelType, type;
+                int power,  year, noOfPassengers, loadCapacity, milage,  rentPerDay, available;
+                string t;
+                getline(ss, Id, ',');
+                getline(ss, brand, ',');
+                getline(ss, model, ',');
+                getline(ss, fuelType, ',');
+                getline(ss, type, ',');
+                getline(ss, t, ',');
+                power = sti(t);
+                getline(ss, t, ',');
+                year = sti(t);
+                getline(ss, t, ',');
+                noOfPassengers = sti(t);
+                getline(ss, t, ',');
+                loadCapacity = sti(t);
+                getline(ss, t, ',');
+                milage = sti(t);
+                getline(ss, t, ',');
+                rentPerDay = sti(t);
+                getline(ss, t, ',');
+                available = sti(t);
+
+                if(Id == id){
+                    available = 1;
+                }
+                temp << Id << "," << brand << "," << model << "," << fuelType << "," << type  << "," << power << "," << year << "," << noOfPassengers << "," << loadCapacity << "," << milage << "," << rentPerDay << "," << available << endl;
+            }
+            file.close();
+            temp.close();
+            remove("vehicles.txt");
+            rename("temp.txt", "vehicles.txt");
+
+            ifstream file_("rent.txt");
+            ofstream temp_("temp.txt");
+            string line_;
+            while(getline(file_, line_)){
+                stringstream ss(line_);
+                string u, id_, days, amount;
+                getline(ss, u, ',');
+                getline(ss, id_, ',');
+                getline(ss, days, ',');
+                getline(ss, amount, ',');
+                if(id_ != id){
+                    temp_ << line_ << endl;
+                }
+            }
+            file_.close();
+            temp_.close();
+            remove("rent.txt");
+            rename("temp.txt", "rent.txt");
+
+            return 0;
+        
+        }
+
+        void showRentedVehicles(){
+            ifstream file("rent.txt");
+            string line;
+            cout << setw(10) << "Username" << setw(10) << "Vehicle ID" << setw(10) << "Days" << setw(10) << "Amount" << endl;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string u, id, days, amount;
+                getline(ss, u, ',');
+                getline(ss, id, ',');
+                getline(ss, days, ',');
+                getline(ss, amount, ',');
+                if(u == username){
+                    cout << setw(10) << u << setw(10) << id << setw(10) << days << setw(10) << amount << endl;
+                }
+            }
+            file.close();
+        }
+
+
 
 };
 
@@ -460,6 +598,22 @@ class Admin: public User{
             file_.close();
 
             return 0;
+        }
+
+        void showRentedVehicles(){
+            ifstream file("rent.txt");
+            string line;
+            cout << setw(10) << "Username" << setw(10) << "Vehicle ID" << setw(10) << "Days" << setw(10) << "Amount" << endl;
+            while(getline(file, line)){
+                stringstream ss(line);
+                string u, id, days, amount;
+                getline(ss, u, ',');
+                getline(ss, id, ',');
+                getline(ss, days, ',');
+                getline(ss, amount, ',');
+                cout << setw(10) << u << setw(10) << id << setw(10) << days << setw(10) << amount << endl;
+            }
+            file.close();
         }
 
 

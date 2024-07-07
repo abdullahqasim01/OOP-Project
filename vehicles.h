@@ -56,17 +56,11 @@ class Vehicle{
             this->brand = brand;
         }
 
-        string getBrand(){
-            return brand;
-        }
 
         void setModel(string model){
             this->model = model;
         }
 
-        string getModel(){
-            return model;
-        }
 
         void setId(string id){
             this->id = id;
